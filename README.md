@@ -2,7 +2,7 @@
 
 # flixel-screenshot-fnf
 
-## `haxelib git flixel-screenshot-plugin http://github.com/sayofthelor/flixel-screenshot-plugin`
+## `haxelib git flixel-screenshot-fnf https://github.com/Votex-coder/flixel-screenshot-fnf`
 
 </div>
 
