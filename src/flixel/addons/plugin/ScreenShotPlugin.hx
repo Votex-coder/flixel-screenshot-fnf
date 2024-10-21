@@ -9,7 +9,6 @@ import flixel.tweens.FlxTween;
 import flixel.FlxG;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
-import flixel.text.FlxText;
 import flixel.input.keyboard.FlxKey;
 
 using StringTools;
@@ -170,8 +169,6 @@ class ScreenShotPlugin extends flixel.FlxBasic {
     private var flashSprite:Sprite;
     private var flashBitmap:Bitmap;
     private var screenshotSprite:Sprite;
-    private var textSprite:Sprite;
-    private var text:FlxText;
     private var shotDisplayBitmap:Bitmap;
     private var outlineBitmap:Bitmap;
 
@@ -199,17 +196,6 @@ class ScreenShotPlugin extends flixel.FlxBasic {
         flashBitmap = new Bitmap(new BitmapData(lastWidth, lastHeight, true, flashColor));
         flashSprite.addChild(flashBitmap);
 
-        textSprite = new Sprite();
-        textSprite.alpha = 0;
-        container.addChild(textSprite);
-
-        text = new FlxText(0, 0, FlxG.width, 'saved!', 20);
-        text.screenCenter(X);
-        text.screenCenter(Y);
-        text.scaleX = 1.3;
-		text.scaleY = 1.3;
-        textSprite.addChild(text);
-
         screenshotSprite = new Sprite();
         screenshotSprite.alpha = 0;
         container.addChild(screenshotSprite);
@@ -234,7 +220,7 @@ class ScreenShotPlugin extends flixel.FlxBasic {
     }
 
     public function screenshot():Void {
-        for (sprite in [flashSprite, screenshotSprite, textSprite]) {
+        for (sprite in [flashSprite, screenshotSprite]) {
             FlxTween.cancelTweensOf(sprite);
             sprite.alpha = 0;
         }
@@ -252,9 +238,6 @@ class ScreenShotPlugin extends flixel.FlxBasic {
 
         flashSprite.alpha = 1;
         FlxTween.tween(flashSprite, {alpha: 0}, screenshotFadeTime);
-
-        textSprite.alpha = 1;
-        FlxTween.tween(textSprite, {alpha: 0}, 0.75);
 
         //https://youtu.be/Lcd_7rOPDcI?si=Php8cT7Ra847E79f
 
@@ -294,7 +277,7 @@ class ScreenShotPlugin extends flixel.FlxBasic {
             return;
 
         @:privateAccess
-        for (parent in [container, flashSprite, screenshotSprite, textSprite])
+        for (parent in [container, flashSprite, screenshotSprite])
             for (child in parent.__children)
                 parent.removeChild(child);
 
@@ -302,8 +285,6 @@ class ScreenShotPlugin extends flixel.FlxBasic {
         flashSprite = null;
         flashBitmap = null;
         screenshotSprite = null;
-        text = null;
-        textSprite = null;
         shotDisplayBitmap = null;
         outlineBitmap = null;
     }
