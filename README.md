@@ -15,9 +15,9 @@ ScreenShotPlugin.screenshotPath:String; // The path where to save the screenshot
 ScreenShotPlugin.flashColor:Int; // The color of the flash that appears when taking a screenshot (0xAARRGGBB)
 ScreenShotPlugin.outlineColor:Int; // The shot display outline's color that appears when taking a screenshot (0xAARRGGBB)
 ScreenShotPlugin.screenshotFadeTime:Float; // The flash fade-in duration
-ScreenShotPlugin.screenshot(); // Screenshot your game of script(lua)/code(hx) 
 ScreenShotPlugin.jpegQuality:Int; // If `saveFormat` is set to JPEG, this defines the quality of the JPEG files (0-100)
 ScreenShotPlugin.sound:FlxSoundAsset; // Custom sound asset to play when the screenshot is taken (if null, no sound is played)
+ScreenShotPlugin.screenshot(); // Screenshot your game of script(lua)/code(hx) 
 ```
 
 ### Some original code from [flixel-addons](http://lib.haxe.org/p/flixel-addons).
