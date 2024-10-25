@@ -1,5 +1,6 @@
 package flixel.addons.plugin;
 
+import openfl.text.TextFormat;
 import flixel.util.FlxSignal.FlxTypedSignal;
 import flixel.FlxCamera;
 import flixel.system.FlxAssets.FlxSoundAsset;
@@ -10,7 +11,6 @@ import flixel.FlxG;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
 import flixel.input.keyboard.FlxKey;
-
 using StringTools;
 
 /**
@@ -26,6 +26,11 @@ class ScreenShotPlugin extends flixel.FlxBasic {
      * Whether the plugin is currently enabled
      */
     public static var enabled:Bool = true;
+
+    /**
+     * Whether the screenshot your game;
+     */
+    public static var screenShot(default, set):Bool = false;
 
     /**
      * Keys to press to screenshot
@@ -96,6 +101,26 @@ class ScreenShotPlugin extends flixel.FlxBasic {
         }
 
         return screenshotKeys;
+    }
+
+    public static function set_screenShot(v:Bool):Bool {
+        screenShot = v;
+        if (!screenShot) 
+        {
+            var shot:Bitmap = new Bitmap(BitmapData.fromImage(FlxG.stage.window.readPixels()));
+            onScreenshotTaken.dispatch(shot);
+
+            var png:ByteArray = shot.bitmapData.encode(shot.bitmapData.rect, saveFormat.returnEncoder());
+            png.position = 0;
+
+            var path = '${screenshotPath}/Screenshot ' + Date.now().toString().split(":").join("-") + saveFormat;
+            if (!sys.FileSystem.exists('./${screenshotPath}/'))
+                sys.FileSystem.createDirectory('./${screenshotPath}/');
+            sys.io.File.saveBytes(path, png);
+
+            onScreenshotTakenPost.dispatch();
+        }
+        return screenShot;
     }
 
     public static function set_saveFormat(v:FileFormatOption) {
@@ -219,7 +244,7 @@ class ScreenShotPlugin extends flixel.FlxBasic {
             screenshot();
     }
 
-    public function screenshot():Void {
+    function screenshot():Void {
         for (sprite in [flashSprite, screenshotSprite]) {
             FlxTween.cancelTweensOf(sprite);
             sprite.alpha = 0;
