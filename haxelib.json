@@ -7,9 +7,5 @@
     "version": "1.0.0",
     "classPath": "src/",
     "releasenote": "Fixes lots of issues, new rebindable key, JPEG support, screenshot function is public.",
-    "contributors": ["sayofthelor", "vidyagirl", "MemeHoovy", "Votex-coder"],
-    "dependencies": {
-      "flixel": "",
-      "openfl": ""
-    }
+    "contributors": ["sayofthelor", "vidyagirl", "MemeHoovy", "Votex-coder"]
   }
